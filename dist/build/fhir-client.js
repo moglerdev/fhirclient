@@ -1,404 +1,6 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/.pnpm/abortcontroller-polyfill@1.7.5/node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js":
-/*!***************************************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/abortcontroller-polyfill@1.7.5/node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js ***!
-  \***************************************************************************************************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {
-   true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-		__WEBPACK_AMD_DEFINE_FACTORY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) :
-  0;
-})((function () { 'use strict';
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    Object.defineProperty(Constructor, "prototype", {
-      writable: false
-    });
-    return Constructor;
-  }
-
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    Object.defineProperty(subClass, "prototype", {
-      writable: false
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-    return _setPrototypeOf(o, p);
-  }
-
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    } else if (call !== void 0) {
-      throw new TypeError("Derived constructors may only return object or undefined");
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-          result;
-
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-
-      return _possibleConstructorReturn(this, result);
-    };
-  }
-
-  function _superPropBase(object, property) {
-    while (!Object.prototype.hasOwnProperty.call(object, property)) {
-      object = _getPrototypeOf(object);
-      if (object === null) break;
-    }
-
-    return object;
-  }
-
-  function _get() {
-    if (typeof Reflect !== "undefined" && Reflect.get) {
-      _get = Reflect.get.bind();
-    } else {
-      _get = function _get(target, property, receiver) {
-        var base = _superPropBase(target, property);
-
-        if (!base) return;
-        var desc = Object.getOwnPropertyDescriptor(base, property);
-
-        if (desc.get) {
-          return desc.get.call(arguments.length < 3 ? target : receiver);
-        }
-
-        return desc.value;
-      };
-    }
-
-    return _get.apply(this, arguments);
-  }
-
-  var Emitter = /*#__PURE__*/function () {
-    function Emitter() {
-      _classCallCheck(this, Emitter);
-
-      Object.defineProperty(this, 'listeners', {
-        value: {},
-        writable: true,
-        configurable: true
-      });
-    }
-
-    _createClass(Emitter, [{
-      key: "addEventListener",
-      value: function addEventListener(type, callback, options) {
-        if (!(type in this.listeners)) {
-          this.listeners[type] = [];
-        }
-
-        this.listeners[type].push({
-          callback: callback,
-          options: options
-        });
-      }
-    }, {
-      key: "removeEventListener",
-      value: function removeEventListener(type, callback) {
-        if (!(type in this.listeners)) {
-          return;
-        }
-
-        var stack = this.listeners[type];
-
-        for (var i = 0, l = stack.length; i < l; i++) {
-          if (stack[i].callback === callback) {
-            stack.splice(i, 1);
-            return;
-          }
-        }
-      }
-    }, {
-      key: "dispatchEvent",
-      value: function dispatchEvent(event) {
-        if (!(event.type in this.listeners)) {
-          return;
-        }
-
-        var stack = this.listeners[event.type];
-        var stackToCall = stack.slice();
-
-        for (var i = 0, l = stackToCall.length; i < l; i++) {
-          var listener = stackToCall[i];
-
-          try {
-            listener.callback.call(this, event);
-          } catch (e) {
-            Promise.resolve().then(function () {
-              throw e;
-            });
-          }
-
-          if (listener.options && listener.options.once) {
-            this.removeEventListener(event.type, listener.callback);
-          }
-        }
-
-        return !event.defaultPrevented;
-      }
-    }]);
-
-    return Emitter;
-  }();
-
-  var AbortSignal = /*#__PURE__*/function (_Emitter) {
-    _inherits(AbortSignal, _Emitter);
-
-    var _super = _createSuper(AbortSignal);
-
-    function AbortSignal() {
-      var _this;
-
-      _classCallCheck(this, AbortSignal);
-
-      _this = _super.call(this); // Some versions of babel does not transpile super() correctly for IE <= 10, if the parent
-      // constructor has failed to run, then "this.listeners" will still be undefined and then we call
-      // the parent constructor directly instead as a workaround. For general details, see babel bug:
-      // https://github.com/babel/babel/issues/3041
-      // This hack was added as a fix for the issue described here:
-      // https://github.com/Financial-Times/polyfill-library/pull/59#issuecomment-477558042
-
-      if (!_this.listeners) {
-        Emitter.call(_assertThisInitialized(_this));
-      } // Compared to assignment, Object.defineProperty makes properties non-enumerable by default and
-      // we want Object.keys(new AbortController().signal) to be [] for compat with the native impl
-
-
-      Object.defineProperty(_assertThisInitialized(_this), 'aborted', {
-        value: false,
-        writable: true,
-        configurable: true
-      });
-      Object.defineProperty(_assertThisInitialized(_this), 'onabort', {
-        value: null,
-        writable: true,
-        configurable: true
-      });
-      Object.defineProperty(_assertThisInitialized(_this), 'reason', {
-        value: undefined,
-        writable: true,
-        configurable: true
-      });
-      return _this;
-    }
-
-    _createClass(AbortSignal, [{
-      key: "toString",
-      value: function toString() {
-        return '[object AbortSignal]';
-      }
-    }, {
-      key: "dispatchEvent",
-      value: function dispatchEvent(event) {
-        if (event.type === 'abort') {
-          this.aborted = true;
-
-          if (typeof this.onabort === 'function') {
-            this.onabort.call(this, event);
-          }
-        }
-
-        _get(_getPrototypeOf(AbortSignal.prototype), "dispatchEvent", this).call(this, event);
-      }
-    }]);
-
-    return AbortSignal;
-  }(Emitter);
-  var AbortController = /*#__PURE__*/function () {
-    function AbortController() {
-      _classCallCheck(this, AbortController);
-
-      // Compared to assignment, Object.defineProperty makes properties non-enumerable by default and
-      // we want Object.keys(new AbortController()) to be [] for compat with the native impl
-      Object.defineProperty(this, 'signal', {
-        value: new AbortSignal(),
-        writable: true,
-        configurable: true
-      });
-    }
-
-    _createClass(AbortController, [{
-      key: "abort",
-      value: function abort(reason) {
-        var event;
-
-        try {
-          event = new Event('abort');
-        } catch (e) {
-          if (typeof document !== 'undefined') {
-            if (!document.createEvent) {
-              // For Internet Explorer 8:
-              event = document.createEventObject();
-              event.type = 'abort';
-            } else {
-              // For Internet Explorer 11:
-              event = document.createEvent('Event');
-              event.initEvent('abort', false, false);
-            }
-          } else {
-            // Fallback where document isn't available:
-            event = {
-              type: 'abort',
-              bubbles: false,
-              cancelable: false
-            };
-          }
-        }
-
-        var signalReason = reason;
-
-        if (signalReason === undefined) {
-          if (typeof document === 'undefined') {
-            signalReason = new Error('This operation was aborted');
-            signalReason.name = 'AbortError';
-          } else {
-            try {
-              signalReason = new DOMException('signal is aborted without reason');
-            } catch (err) {
-              // IE 11 does not support calling the DOMException constructor, use a
-              // regular error object on it instead.
-              signalReason = new Error('This operation was aborted');
-              signalReason.name = 'AbortError';
-            }
-          }
-        }
-
-        this.signal.reason = signalReason;
-        this.signal.dispatchEvent(event);
-      }
-    }, {
-      key: "toString",
-      value: function toString() {
-        return '[object AbortController]';
-      }
-    }]);
-
-    return AbortController;
-  }();
-
-  if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-    // These are necessary to make sure that we get correct output for:
-    // Object.prototype.toString.call(new AbortController())
-    AbortController.prototype[Symbol.toStringTag] = 'AbortController';
-    AbortSignal.prototype[Symbol.toStringTag] = 'AbortSignal';
-  }
-
-  function polyfillNeeded(self) {
-    if (self.__FORCE_INSTALL_ABORTCONTROLLER_POLYFILL) {
-      console.log('__FORCE_INSTALL_ABORTCONTROLLER_POLYFILL=true is set, will force install polyfill');
-      return true;
-    } // Note that the "unfetch" minimal fetch polyfill defines fetch() without
-    // defining window.Request, and this polyfill need to work on top of unfetch
-    // so the below feature detection needs the !self.AbortController part.
-    // The Request.prototype check is also needed because Safari versions 11.1.2
-    // up to and including 12.1.x has a window.AbortController present but still
-    // does NOT correctly implement abortable fetch:
-    // https://bugs.webkit.org/show_bug.cgi?id=174980#c2
-
-
-    return typeof self.Request === 'function' && !self.Request.prototype.hasOwnProperty('signal') || !self.AbortController;
-  }
-
-  (function (self) {
-
-    if (!polyfillNeeded(self)) {
-      return;
-    }
-
-    self.AbortController = AbortController;
-    self.AbortSignal = AbortSignal;
-  })(typeof self !== 'undefined' ? self : __webpack_require__.g);
-
-}));
-
-
-/***/ }),
-
 /***/ "./src/Client.ts":
 /*!***********************!*\
   !*** ./src/Client.ts ***!
@@ -451,11 +53,6 @@ Object.defineProperty(exports, "__esModule", ({
 var lib_1 = __webpack_require__(/*! ./lib */ "./src/lib.ts");
 var strings_1 = __webpack_require__(/*! ./strings */ "./src/strings.ts");
 var settings_1 = __webpack_require__(/*! ./settings */ "./src/settings.ts");
-// $lab:coverage:off$
-// @ts-ignore
-var _ref = typeof FHIRCLIENT_PURE !== "undefined" ? window : __webpack_require__(/*! cross-fetch */ "./node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js"),
-  Response = _ref.Response;
-// $lab:coverage:on$
 var debug = lib_1.debug.extend("client");
 /**
  * Adds patient context to requestOptions object to be used with [[Client.request]]
@@ -604,7 +201,7 @@ function resolveRefs(obj, fhirOptions, cache, client, signal) {
   paths = paths.filter(function (p, i) {
     var index = paths.indexOf(p, i + 1);
     if (index > -1) {
-      debug("Duplicated reference path \"%s\"", p);
+      debug('Duplicated reference path "%s"', p);
       return false;
     }
     return true;
@@ -664,7 +261,7 @@ var Client = /*#__PURE__*/function () {
       serverUrl: state
     } : state;
     // Valid serverUrl is required!
-    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), "A \"serverUrl\" option is required and must begin with \"http(s)\"");
+    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), 'A "serverUrl" option is required and must begin with "http(s)"');
     this.state = _state;
     this.environment = environment;
     this._refreshTask = null;
@@ -1071,7 +668,7 @@ var Client = /*#__PURE__*/function () {
                 method: "PATCH",
                 body: JSON.stringify(_patch),
                 headers: _objectSpread({
-                  "prefer": "return=presentation",
+                  prefer: "return=presentation",
                   "content-type": "application/json-patch+json; charset=UTF-8"
                 }, requestOptions.headers)
               })));
@@ -1163,7 +760,7 @@ var Client = /*#__PURE__*/function () {
               })
               // Handle 401 ------------------------------------------------------
               .catch( /*#__PURE__*/function () {
-                var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4(error) {
+                var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4(error) {
                   return _regenerator.default.wrap(function _callee4$(_context4) {
                     while (1) switch (_context4.prev = _context4.next) {
                       case 0:
@@ -1209,7 +806,7 @@ var Client = /*#__PURE__*/function () {
                   }, _callee4);
                 }));
                 return function (_x6) {
-                  return _ref3.apply(this, arguments);
+                  return _ref2.apply(this, arguments);
                 };
               }())
               // Handle 403 ------------------------------------------------------
@@ -1226,7 +823,7 @@ var Client = /*#__PURE__*/function () {
                 if (typeof data == "string" || data instanceof Response) return data;
                 // Resolve References ------------------------------------------
                 return function () {
-                  var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5(_data) {
+                  var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5(_data) {
                     return _regenerator.default.wrap(function _callee5$(_context5) {
                       while (1) switch (_context5.prev = _context5.next) {
                         case 0:
@@ -1253,12 +850,12 @@ var Client = /*#__PURE__*/function () {
                     }, _callee5);
                   }));
                   return function (_x7) {
-                    return _ref4.apply(this, arguments);
+                    return _ref3.apply(this, arguments);
                   };
                 }()(data)
                 // Pagination ----------------------------------------------
                 .then( /*#__PURE__*/function () {
-                  var _ref5 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6(_data) {
+                  var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6(_data) {
                     var links, next, nextPage;
                     return _regenerator.default.wrap(function _callee6$(_context6) {
                       while (1) switch (_context6.prev = _context6.next) {
@@ -1326,7 +923,7 @@ var Client = /*#__PURE__*/function () {
                     }, _callee6);
                   }));
                   return function (_x8) {
-                    return _ref5.apply(this, arguments);
+                    return _ref4.apply(this, arguments);
                   };
                 }())
                 // Finalize ------------------------------------------------
@@ -1925,8 +1522,6 @@ exports["default"] = BrowserAdapter;
 
 // In Browsers we create an adapter, get the SMART api from it and build the
 // global FHIR object
-__webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/.pnpm/core-js@3.33.2/node_modules/core-js/modules/es.object.to-string.js");
-__webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/.pnpm/core-js@3.33.2/node_modules/core-js/modules/es.promise.js");
 var BrowserAdapter_1 = __webpack_require__(/*! ../adapters/BrowserAdapter */ "./src/adapters/BrowserAdapter.ts");
 var adapter = new BrowserAdapter_1.default();
 var _adapter$getSmartApi = adapter.getSmartApi(),
@@ -1936,22 +1531,6 @@ var _adapter$getSmartApi = adapter.getSmartApi(),
   client = _adapter$getSmartApi.client,
   options = _adapter$getSmartApi.options,
   utils = _adapter$getSmartApi.utils;
-// We have two kinds of browser builds - "pure" for new browsers and "legacy"
-// for old ones. In pure builds we assume that the browser supports everything
-// we need. In legacy mode, the library also acts as a polyfill. Babel will
-// automatically polyfill everything except "fetch", which we have to handle
-// manually.
-// @ts-ignore
-if (typeof FHIRCLIENT_PURE == "undefined") {
-  var fetch = __webpack_require__(/*! cross-fetch */ "./node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js");
-  __webpack_require__(/*! abortcontroller-polyfill/dist/abortcontroller-polyfill-only */ "./node_modules/.pnpm/abortcontroller-polyfill@1.7.5/node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js");
-  if (!window.fetch) {
-    window.fetch = fetch.default;
-    window.Headers = fetch.Headers;
-    window.Request = fetch.Request;
-    window.Response = fetch.Response;
-  }
-}
 // $lab:coverage:off$
 var FHIR = {
   AbortController: window.AbortController,
@@ -2015,11 +1594,6 @@ exports.assertJsonPatch = exports.assert = exports.getTargetWindow = exports.get
 var HttpError_1 = __webpack_require__(/*! ./HttpError */ "./src/HttpError.ts");
 var settings_1 = __webpack_require__(/*! ./settings */ "./src/settings.ts");
 var debug = __webpack_require__(/*! debug */ "./node_modules/.pnpm/debug@4.3.4_supports-color@8.1.1/node_modules/debug/src/browser.js");
-// $lab:coverage:off$
-// @ts-ignore
-var _ref = typeof FHIRCLIENT_PURE !== "undefined" ? window : __webpack_require__(/*! cross-fetch */ "./node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js"),
-  fetch = _ref.fetch;
-// $lab:coverage:on$
 var _debug = debug("FHIR");
 exports.debug = _debug;
 /**
@@ -2030,9 +1604,9 @@ var cache = {};
  * A namespace with functions for converting between different measurement units
  */
 exports.units = {
-  cm: function cm(_ref2) {
-    var code = _ref2.code,
-      value = _ref2.value;
+  cm: function cm(_ref) {
+    var code = _ref.code,
+      value = _ref.value;
     ensureNumerical({
       code: code,
       value: value
@@ -2046,9 +1620,9 @@ exports.units = {
     if (code == "[ft_us]") return value * 30.48;
     throw new Error("Unrecognized length unit: " + code);
   },
-  kg: function kg(_ref3) {
-    var code = _ref3.code,
-      value = _ref3.value;
+  kg: function kg(_ref2) {
+    var code = _ref2.code,
+      value = _ref2.value;
     ensureNumerical({
       code: code,
       value: value
@@ -2067,9 +1641,9 @@ exports.units = {
 /**
  * Assertion function to guard arguments for `units` functions
  */
-function ensureNumerical(_ref4) {
-  var value = _ref4.value,
-    code = _ref4.code;
+function ensureNumerical(_ref3) {
+  var value = _ref3.value,
+    code = _ref3.code;
   if (typeof value !== "number") {
     throw new Error("Found a non-numerical unit: " + value + " " + code);
   }
@@ -2081,27 +1655,27 @@ function checkResponse(_x) {
   return _checkResponse.apply(this, arguments);
 }
 function _checkResponse() {
-  _checkResponse = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(resp) {
+  _checkResponse = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(resp) {
     var error;
-    return _regenerator.default.wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+    return _regenerator.default.wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
           if (resp.ok) {
-            _context.next = 5;
+            _context2.next = 5;
             break;
           }
           error = new HttpError_1.default(resp);
-          _context.next = 4;
+          _context2.next = 4;
           return error.parse();
         case 4:
           throw error;
         case 5:
-          return _context.abrupt("return", resp);
+          return _context2.abrupt("return", resp);
         case 6:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
-    }, _callee);
+    }, _callee2);
   }));
   return _checkResponse.apply(this, arguments);
 }
@@ -2158,30 +1732,59 @@ function request(url) {
     headers: _objectSpread({
       accept: "application/json"
     }, loweCaseKeys(options.headers))
-  })).then(checkResponse).then(function (res) {
-    var type = res.headers.get("content-type") + "";
-    if (type.match(/\bjson\b/i)) {
-      return responseToJSON(res).then(function (body) {
-        return {
-          res: res,
-          body: body
-        };
-      });
-    }
-    if (type.match(/^text\//i)) {
-      return res.text().then(function (body) {
-        return {
-          res: res,
-          body: body
-        };
-      });
-    }
-    return {
-      res: res
+  })).then(checkResponse).then( /*#__PURE__*/function () {
+    var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {
+      var type, isJson, isText;
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            type = res.headers.get("content-type") + "";
+            isJson = type.match(/\bjson\b/i);
+            isText = type.match(/\btext\b/i);
+            _context.t0 = res;
+            if (!isJson) {
+              _context.next = 10;
+              break;
+            }
+            _context.next = 7;
+            return res.json();
+          case 7:
+            _context.t1 = _context.sent;
+            _context.next = 18;
+            break;
+          case 10:
+            if (!isText) {
+              _context.next = 16;
+              break;
+            }
+            _context.next = 13;
+            return res.text();
+          case 13:
+            _context.t2 = _context.sent;
+            _context.next = 17;
+            break;
+          case 16:
+            _context.t2 = undefined;
+          case 17:
+            _context.t1 = _context.t2;
+          case 18:
+            _context.t3 = _context.t1;
+            return _context.abrupt("return", {
+              res: _context.t0,
+              body: _context.t3
+            });
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+    return function (_x2) {
+      return _ref4.apply(this, arguments);
     };
-  }).then(function (_ref5) {
-    var res = _ref5.res,
-      body = _ref5.body;
+  }()).then(function (_ref5) {
+    var body = _ref5.body,
+      res = _ref5.res;
     // Some servers will reply after CREATE with json content type but with
     // empty body. In this case check if a location header is received and
     // fetch that to use it as the final result.
@@ -2499,11 +2102,11 @@ exports.getPatientParam = getPatientParam;
  * @param width Only used when `target = "popup"`
  * @param height Only used when `target = "popup"`
  */
-function getTargetWindow(_x2) {
+function getTargetWindow(_x3) {
   return _getTargetWindow.apply(this, arguments);
 }
 function _getTargetWindow() {
-  _getTargetWindow = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(target) {
+  _getTargetWindow = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3(target) {
     var width,
       height,
       error,
@@ -2511,125 +2114,125 @@ function _getTargetWindow() {
       _error,
       _targetWindow,
       winOrFrame,
-      _args2 = arguments;
-    return _regenerator.default.wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+      _args3 = arguments;
+    return _regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          width = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 800;
-          height = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : 720;
+          width = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 800;
+          height = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 720;
           if (!(typeof target == "function")) {
-            _context2.next = 6;
+            _context3.next = 6;
             break;
           }
-          _context2.next = 5;
+          _context3.next = 5;
           return target();
         case 5:
-          target = _context2.sent;
+          target = _context3.sent;
         case 6:
           if (!(target && (0, _typeof2.default)(target) == "object")) {
-            _context2.next = 8;
+            _context3.next = 8;
             break;
           }
-          return _context2.abrupt("return", target);
+          return _context3.abrupt("return", target);
         case 8:
           if (!(typeof target != "string")) {
-            _context2.next = 11;
+            _context3.next = 11;
             break;
           }
           _debug("Invalid target type '%s'. Failing back to '_self'.", (0, _typeof2.default)(target));
-          return _context2.abrupt("return", self);
+          return _context3.abrupt("return", self);
         case 11:
           if (!(target == "_self")) {
-            _context2.next = 13;
+            _context3.next = 13;
             break;
           }
-          return _context2.abrupt("return", self);
+          return _context3.abrupt("return", self);
         case 13:
           if (!(target == "_parent")) {
-            _context2.next = 15;
+            _context3.next = 15;
             break;
           }
-          return _context2.abrupt("return", parent);
+          return _context3.abrupt("return", parent);
         case 15:
           if (!(target == "_top")) {
-            _context2.next = 17;
+            _context3.next = 17;
             break;
           }
-          return _context2.abrupt("return", top || self);
+          return _context3.abrupt("return", top || self);
         case 17:
           if (!(target == "_blank")) {
-            _context2.next = 34;
+            _context3.next = 34;
             break;
           }
           targetWindow = null;
-          _context2.prev = 19;
+          _context3.prev = 19;
           targetWindow = window.open("", "SMARTAuthPopup");
           if (targetWindow) {
-            _context2.next = 23;
+            _context3.next = 23;
             break;
           }
           throw new Error("Perhaps window.open was blocked");
         case 23:
-          _context2.next = 28;
+          _context3.next = 28;
           break;
         case 25:
-          _context2.prev = 25;
-          _context2.t0 = _context2["catch"](19);
-          error = _context2.t0;
+          _context3.prev = 25;
+          _context3.t0 = _context3["catch"](19);
+          error = _context3.t0;
         case 28:
           if (targetWindow) {
-            _context2.next = 33;
+            _context3.next = 33;
             break;
           }
           _debug("Cannot open window. Failing back to '_self'. %s", error);
-          return _context2.abrupt("return", self);
+          return _context3.abrupt("return", self);
         case 33:
-          return _context2.abrupt("return", targetWindow);
+          return _context3.abrupt("return", targetWindow);
         case 34:
           if (!(target == "popup")) {
-            _context2.next = 51;
+            _context3.next = 51;
             break;
           }
           _targetWindow = null; // if (!targetWindow || targetWindow.closed) {
-          _context2.prev = 36;
+          _context3.prev = 36;
           _targetWindow = window.open("", "SMARTAuthPopup", ["height=" + height, "width=" + width, "menubar=0", "resizable=1", "status=0", "top=" + (screen.height - height) / 2, "left=" + (screen.width - width) / 2].join(","));
           if (_targetWindow) {
-            _context2.next = 40;
+            _context3.next = 40;
             break;
           }
           throw new Error("Perhaps the popup window was blocked");
         case 40:
-          _context2.next = 45;
+          _context3.next = 45;
           break;
         case 42:
-          _context2.prev = 42;
-          _context2.t1 = _context2["catch"](36);
-          _error = _context2.t1;
+          _context3.prev = 42;
+          _context3.t1 = _context3["catch"](36);
+          _error = _context3.t1;
         case 45:
           if (_targetWindow) {
-            _context2.next = 50;
+            _context3.next = 50;
             break;
           }
           _debug("Cannot open window. Failing back to '_self'. %s", _error);
-          return _context2.abrupt("return", self);
+          return _context3.abrupt("return", self);
         case 50:
-          return _context2.abrupt("return", _targetWindow);
+          return _context3.abrupt("return", _targetWindow);
         case 51:
           // Frame or window by name
           winOrFrame = frames[target];
           if (!winOrFrame) {
-            _context2.next = 54;
+            _context3.next = 54;
             break;
           }
-          return _context2.abrupt("return", winOrFrame);
+          return _context3.abrupt("return", winOrFrame);
         case 54:
           _debug("Unknown target '%s'. Failing back to '_self'.", target);
-          return _context2.abrupt("return", self);
+          return _context3.abrupt("return", self);
         case 56:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[19, 25], [36, 42]]);
+    }, _callee3, null, [[19, 25], [36, 42]]);
   }));
   return _getTargetWindow.apply(this, arguments);
 }
@@ -3955,570 +3558,6 @@ exports["default"] = {
   noIfNoAuth: "You are trying to get %s but the app is not authorized yet.",
   noFreeContext: "Please don't use open fhir servers if you need to access launch context items like the %S."
 };
-
-/***/ }),
-
-/***/ "./node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/cross-fetch@3.1.8/node_modules/cross-fetch/dist/browser-ponyfill.js ***!
-  \************************************************************************************************/
-/***/ (function(module, exports) {
-
-var global = typeof self !== 'undefined' ? self : this;
-var __self__ = (function () {
-function F() {
-this.fetch = false;
-this.DOMException = global.DOMException
-}
-F.prototype = global;
-return new F();
-})();
-(function(self) {
-
-var irrelevant = (function (exports) {
-
-  var support = {
-    searchParams: 'URLSearchParams' in self,
-    iterable: 'Symbol' in self && 'iterator' in Symbol,
-    blob:
-      'FileReader' in self &&
-      'Blob' in self &&
-      (function() {
-        try {
-          new Blob();
-          return true
-        } catch (e) {
-          return false
-        }
-      })(),
-    formData: 'FormData' in self,
-    arrayBuffer: 'ArrayBuffer' in self
-  };
-
-  function isDataView(obj) {
-    return obj && DataView.prototype.isPrototypeOf(obj)
-  }
-
-  if (support.arrayBuffer) {
-    var viewClasses = [
-      '[object Int8Array]',
-      '[object Uint8Array]',
-      '[object Uint8ClampedArray]',
-      '[object Int16Array]',
-      '[object Uint16Array]',
-      '[object Int32Array]',
-      '[object Uint32Array]',
-      '[object Float32Array]',
-      '[object Float64Array]'
-    ];
-
-    var isArrayBufferView =
-      ArrayBuffer.isView ||
-      function(obj) {
-        return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
-      };
-  }
-
-  function normalizeName(name) {
-    if (typeof name !== 'string') {
-      name = String(name);
-    }
-    if (/[^a-z0-9\-#$%&'*+.^_`|~]/i.test(name)) {
-      throw new TypeError('Invalid character in header field name')
-    }
-    return name.toLowerCase()
-  }
-
-  function normalizeValue(value) {
-    if (typeof value !== 'string') {
-      value = String(value);
-    }
-    return value
-  }
-
-  // Build a destructive iterator for the value list
-  function iteratorFor(items) {
-    var iterator = {
-      next: function() {
-        var value = items.shift();
-        return {done: value === undefined, value: value}
-      }
-    };
-
-    if (support.iterable) {
-      iterator[Symbol.iterator] = function() {
-        return iterator
-      };
-    }
-
-    return iterator
-  }
-
-  function Headers(headers) {
-    this.map = {};
-
-    if (headers instanceof Headers) {
-      headers.forEach(function(value, name) {
-        this.append(name, value);
-      }, this);
-    } else if (Array.isArray(headers)) {
-      headers.forEach(function(header) {
-        this.append(header[0], header[1]);
-      }, this);
-    } else if (headers) {
-      Object.getOwnPropertyNames(headers).forEach(function(name) {
-        this.append(name, headers[name]);
-      }, this);
-    }
-  }
-
-  Headers.prototype.append = function(name, value) {
-    name = normalizeName(name);
-    value = normalizeValue(value);
-    var oldValue = this.map[name];
-    this.map[name] = oldValue ? oldValue + ', ' + value : value;
-  };
-
-  Headers.prototype['delete'] = function(name) {
-    delete this.map[normalizeName(name)];
-  };
-
-  Headers.prototype.get = function(name) {
-    name = normalizeName(name);
-    return this.has(name) ? this.map[name] : null
-  };
-
-  Headers.prototype.has = function(name) {
-    return this.map.hasOwnProperty(normalizeName(name))
-  };
-
-  Headers.prototype.set = function(name, value) {
-    this.map[normalizeName(name)] = normalizeValue(value);
-  };
-
-  Headers.prototype.forEach = function(callback, thisArg) {
-    for (var name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
-        callback.call(thisArg, this.map[name], name, this);
-      }
-    }
-  };
-
-  Headers.prototype.keys = function() {
-    var items = [];
-    this.forEach(function(value, name) {
-      items.push(name);
-    });
-    return iteratorFor(items)
-  };
-
-  Headers.prototype.values = function() {
-    var items = [];
-    this.forEach(function(value) {
-      items.push(value);
-    });
-    return iteratorFor(items)
-  };
-
-  Headers.prototype.entries = function() {
-    var items = [];
-    this.forEach(function(value, name) {
-      items.push([name, value]);
-    });
-    return iteratorFor(items)
-  };
-
-  if (support.iterable) {
-    Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
-  }
-
-  function consumed(body) {
-    if (body.bodyUsed) {
-      return Promise.reject(new TypeError('Already read'))
-    }
-    body.bodyUsed = true;
-  }
-
-  function fileReaderReady(reader) {
-    return new Promise(function(resolve, reject) {
-      reader.onload = function() {
-        resolve(reader.result);
-      };
-      reader.onerror = function() {
-        reject(reader.error);
-      };
-    })
-  }
-
-  function readBlobAsArrayBuffer(blob) {
-    var reader = new FileReader();
-    var promise = fileReaderReady(reader);
-    reader.readAsArrayBuffer(blob);
-    return promise
-  }
-
-  function readBlobAsText(blob) {
-    var reader = new FileReader();
-    var promise = fileReaderReady(reader);
-    reader.readAsText(blob);
-    return promise
-  }
-
-  function readArrayBufferAsText(buf) {
-    var view = new Uint8Array(buf);
-    var chars = new Array(view.length);
-
-    for (var i = 0; i < view.length; i++) {
-      chars[i] = String.fromCharCode(view[i]);
-    }
-    return chars.join('')
-  }
-
-  function bufferClone(buf) {
-    if (buf.slice) {
-      return buf.slice(0)
-    } else {
-      var view = new Uint8Array(buf.byteLength);
-      view.set(new Uint8Array(buf));
-      return view.buffer
-    }
-  }
-
-  function Body() {
-    this.bodyUsed = false;
-
-    this._initBody = function(body) {
-      this._bodyInit = body;
-      if (!body) {
-        this._bodyText = '';
-      } else if (typeof body === 'string') {
-        this._bodyText = body;
-      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-        this._bodyBlob = body;
-      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-        this._bodyFormData = body;
-      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-        this._bodyText = body.toString();
-      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
-        this._bodyArrayBuffer = bufferClone(body.buffer);
-        // IE 10-11 can't handle a DataView body.
-        this._bodyInit = new Blob([this._bodyArrayBuffer]);
-      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
-        this._bodyArrayBuffer = bufferClone(body);
-      } else {
-        this._bodyText = body = Object.prototype.toString.call(body);
-      }
-
-      if (!this.headers.get('content-type')) {
-        if (typeof body === 'string') {
-          this.headers.set('content-type', 'text/plain;charset=UTF-8');
-        } else if (this._bodyBlob && this._bodyBlob.type) {
-          this.headers.set('content-type', this._bodyBlob.type);
-        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        }
-      }
-    };
-
-    if (support.blob) {
-      this.blob = function() {
-        var rejected = consumed(this);
-        if (rejected) {
-          return rejected
-        }
-
-        if (this._bodyBlob) {
-          return Promise.resolve(this._bodyBlob)
-        } else if (this._bodyArrayBuffer) {
-          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
-        } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as blob')
-        } else {
-          return Promise.resolve(new Blob([this._bodyText]))
-        }
-      };
-
-      this.arrayBuffer = function() {
-        if (this._bodyArrayBuffer) {
-          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
-        } else {
-          return this.blob().then(readBlobAsArrayBuffer)
-        }
-      };
-    }
-
-    this.text = function() {
-      var rejected = consumed(this);
-      if (rejected) {
-        return rejected
-      }
-
-      if (this._bodyBlob) {
-        return readBlobAsText(this._bodyBlob)
-      } else if (this._bodyArrayBuffer) {
-        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
-      } else if (this._bodyFormData) {
-        throw new Error('could not read FormData body as text')
-      } else {
-        return Promise.resolve(this._bodyText)
-      }
-    };
-
-    if (support.formData) {
-      this.formData = function() {
-        return this.text().then(decode)
-      };
-    }
-
-    this.json = function() {
-      return this.text().then(JSON.parse)
-    };
-
-    return this
-  }
-
-  // HTTP methods whose capitalization should be normalized
-  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'];
-
-  function normalizeMethod(method) {
-    var upcased = method.toUpperCase();
-    return methods.indexOf(upcased) > -1 ? upcased : method
-  }
-
-  function Request(input, options) {
-    options = options || {};
-    var body = options.body;
-
-    if (input instanceof Request) {
-      if (input.bodyUsed) {
-        throw new TypeError('Already read')
-      }
-      this.url = input.url;
-      this.credentials = input.credentials;
-      if (!options.headers) {
-        this.headers = new Headers(input.headers);
-      }
-      this.method = input.method;
-      this.mode = input.mode;
-      this.signal = input.signal;
-      if (!body && input._bodyInit != null) {
-        body = input._bodyInit;
-        input.bodyUsed = true;
-      }
-    } else {
-      this.url = String(input);
-    }
-
-    this.credentials = options.credentials || this.credentials || 'same-origin';
-    if (options.headers || !this.headers) {
-      this.headers = new Headers(options.headers);
-    }
-    this.method = normalizeMethod(options.method || this.method || 'GET');
-    this.mode = options.mode || this.mode || null;
-    this.signal = options.signal || this.signal;
-    this.referrer = null;
-
-    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-      throw new TypeError('Body not allowed for GET or HEAD requests')
-    }
-    this._initBody(body);
-  }
-
-  Request.prototype.clone = function() {
-    return new Request(this, {body: this._bodyInit})
-  };
-
-  function decode(body) {
-    var form = new FormData();
-    body
-      .trim()
-      .split('&')
-      .forEach(function(bytes) {
-        if (bytes) {
-          var split = bytes.split('=');
-          var name = split.shift().replace(/\+/g, ' ');
-          var value = split.join('=').replace(/\+/g, ' ');
-          form.append(decodeURIComponent(name), decodeURIComponent(value));
-        }
-      });
-    return form
-  }
-
-  function parseHeaders(rawHeaders) {
-    var headers = new Headers();
-    // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
-    // https://tools.ietf.org/html/rfc7230#section-3.2
-    var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, ' ');
-    preProcessedHeaders.split(/\r?\n/).forEach(function(line) {
-      var parts = line.split(':');
-      var key = parts.shift().trim();
-      if (key) {
-        var value = parts.join(':').trim();
-        headers.append(key, value);
-      }
-    });
-    return headers
-  }
-
-  Body.call(Request.prototype);
-
-  function Response(bodyInit, options) {
-    if (!options) {
-      options = {};
-    }
-
-    this.type = 'default';
-    this.status = options.status === undefined ? 200 : options.status;
-    this.ok = this.status >= 200 && this.status < 300;
-    this.statusText = 'statusText' in options ? options.statusText : 'OK';
-    this.headers = new Headers(options.headers);
-    this.url = options.url || '';
-    this._initBody(bodyInit);
-  }
-
-  Body.call(Response.prototype);
-
-  Response.prototype.clone = function() {
-    return new Response(this._bodyInit, {
-      status: this.status,
-      statusText: this.statusText,
-      headers: new Headers(this.headers),
-      url: this.url
-    })
-  };
-
-  Response.error = function() {
-    var response = new Response(null, {status: 0, statusText: ''});
-    response.type = 'error';
-    return response
-  };
-
-  var redirectStatuses = [301, 302, 303, 307, 308];
-
-  Response.redirect = function(url, status) {
-    if (redirectStatuses.indexOf(status) === -1) {
-      throw new RangeError('Invalid status code')
-    }
-
-    return new Response(null, {status: status, headers: {location: url}})
-  };
-
-  exports.DOMException = self.DOMException;
-  try {
-    new exports.DOMException();
-  } catch (err) {
-    exports.DOMException = function(message, name) {
-      this.message = message;
-      this.name = name;
-      var error = Error(message);
-      this.stack = error.stack;
-    };
-    exports.DOMException.prototype = Object.create(Error.prototype);
-    exports.DOMException.prototype.constructor = exports.DOMException;
-  }
-
-  function fetch(input, init) {
-    return new Promise(function(resolve, reject) {
-      var request = new Request(input, init);
-
-      if (request.signal && request.signal.aborted) {
-        return reject(new exports.DOMException('Aborted', 'AbortError'))
-      }
-
-      var xhr = new XMLHttpRequest();
-
-      function abortXhr() {
-        xhr.abort();
-      }
-
-      xhr.onload = function() {
-        var options = {
-          status: xhr.status,
-          statusText: xhr.statusText,
-          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
-        };
-        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
-        resolve(new Response(body, options));
-      };
-
-      xhr.onerror = function() {
-        reject(new TypeError('Network request failed'));
-      };
-
-      xhr.ontimeout = function() {
-        reject(new TypeError('Network request failed'));
-      };
-
-      xhr.onabort = function() {
-        reject(new exports.DOMException('Aborted', 'AbortError'));
-      };
-
-      xhr.open(request.method, request.url, true);
-
-      if (request.credentials === 'include') {
-        xhr.withCredentials = true;
-      } else if (request.credentials === 'omit') {
-        xhr.withCredentials = false;
-      }
-
-      if ('responseType' in xhr && support.blob) {
-        xhr.responseType = 'blob';
-      }
-
-      request.headers.forEach(function(value, name) {
-        xhr.setRequestHeader(name, value);
-      });
-
-      if (request.signal) {
-        request.signal.addEventListener('abort', abortXhr);
-
-        xhr.onreadystatechange = function() {
-          // DONE (success or failure)
-          if (xhr.readyState === 4) {
-            request.signal.removeEventListener('abort', abortXhr);
-          }
-        };
-      }
-
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
-    })
-  }
-
-  fetch.polyfill = true;
-
-  if (!self.fetch) {
-    self.fetch = fetch;
-    self.Headers = Headers;
-    self.Request = Request;
-    self.Response = Response;
-  }
-
-  exports.Headers = Headers;
-  exports.Request = Request;
-  exports.Response = Response;
-  exports.fetch = fetch;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
-
-  return exports;
-
-})({});
-})(__self__);
-__self__.fetch.ponyfill = true;
-// Remove "polyfill" property added by whatwg-fetch
-delete __self__.fetch.polyfill;
-// Choose between native implementation (global) or custom implementation (__self__)
-// var ctx = global.fetch ? global : __self__;
-var ctx = __self__; // this line disable service worker support temporarily
-exports = ctx.fetch // To enable: import fetch from 'cross-fetch'
-exports["default"] = ctx.fetch // For TypeScript consumers without esModuleInterop.
-exports.fetch = ctx.fetch // To enable: import {fetch} from 'cross-fetch'
-exports.Headers = ctx.Headers
-exports.Request = ctx.Request
-exports.Response = ctx.Response
-module.exports = exports
-
 
 /***/ }),
 

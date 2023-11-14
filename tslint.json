@@ -11,6 +11,7 @@
         "no-empty": false
     },
     "rules": {
+        "indent": [true, "spaces", 2],
         "import-spacing": false,
         "ordered-imports": false,
         "one-variable-per-declaration": false,

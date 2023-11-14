@@ -19,12 +19,6 @@ exports.assertJsonPatch = exports.assert = exports.getTargetWindow = exports.get
 const HttpError_1 = require("./HttpError");
 const settings_1 = require("./settings");
 const debug = require("debug");
-// $lab:coverage:off$
-// @ts-ignore
-const {
-  fetch
-} = typeof FHIRCLIENT_PURE !== "undefined" ? window : require("cross-fetch");
-// $lab:coverage:on$
 const _debug = debug("FHIR");
 exports.debug = _debug;
 /**
@@ -143,26 +137,17 @@ function request(url, requestOptions = {}) {
     headers: Object.assign({
       accept: "application/json"
     }, loweCaseKeys(options.headers))
-  })).then(checkResponse).then(res => {
+  })).then(checkResponse).then(async res => {
     const type = res.headers.get("content-type") + "";
-    if (type.match(/\bjson\b/i)) {
-      return responseToJSON(res).then(body => ({
-        res,
-        body
-      }));
-    }
-    if (type.match(/^text\//i)) {
-      return res.text().then(body => ({
-        res,
-        body
-      }));
-    }
+    const isJson = type.match(/\bjson\b/i);
+    const isText = type.match(/\btext\b/i);
     return {
-      res
+      res,
+      body: isJson ? await res.json() : isText ? await res.text() : undefined
     };
   }).then(({
-    res,
-    body
+    body,
+    res
   }) => {
     // Some servers will reply after CREATE with json content type but with
     // empty body. In this case check if a location header is received and

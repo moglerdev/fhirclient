@@ -16,12 +16,6 @@ Object.defineProperty(exports, "__esModule", ({
 const lib_1 = __webpack_require__(/*! ./lib */ "./src/lib.ts");
 const strings_1 = __webpack_require__(/*! ./strings */ "./src/strings.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/settings.ts");
-// $lab:coverage:off$
-// @ts-ignore
-const {
-  Response
-} =  true ? window : 0;
-// $lab:coverage:on$
 const debug = lib_1.debug.extend("client");
 /**
  * Adds patient context to requestOptions object to be used with [[Client.request]]
@@ -125,7 +119,7 @@ function resolveRefs(obj, fhirOptions, cache, client, signal) {
   paths = paths.filter((p, i) => {
     const index = paths.indexOf(p, i + 1);
     if (index > -1) {
-      debug("Duplicated reference path \"%s\"", p);
+      debug('Duplicated reference path "%s"', p);
       return false;
     }
     return true;
@@ -181,7 +175,7 @@ class Client {
       serverUrl: state
     } : state;
     // Valid serverUrl is required!
-    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), "A \"serverUrl\" option is required and must begin with \"http(s)\"");
+    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), 'A "serverUrl" option is required and must begin with "http(s)"');
     this.state = _state;
     this.environment = environment;
     this._refreshTask = null;
@@ -529,7 +523,7 @@ class Client {
       method: "PATCH",
       body: JSON.stringify(patch),
       headers: {
-        "prefer": "return=presentation",
+        prefer: "return=presentation",
         "content-type": "application/json-patch+json; charset=UTF-8",
         ...requestOptions.headers
       }
@@ -1138,13 +1132,6 @@ const {
   options,
   utils
 } = adapter.getSmartApi();
-// We have two kinds of browser builds - "pure" for new browsers and "legacy"
-// for old ones. In pure builds we assume that the browser supports everything
-// we need. In legacy mode, the library also acts as a polyfill. Babel will
-// automatically polyfill everything except "fetch", which we have to handle
-// manually.
-// @ts-ignore
-if (false) {}
 // $lab:coverage:off$
 const FHIR = {
   AbortController: window.AbortController,
@@ -1182,12 +1169,6 @@ exports.assertJsonPatch = exports.assert = exports.getTargetWindow = exports.get
 const HttpError_1 = __webpack_require__(/*! ./HttpError */ "./src/HttpError.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/settings.ts");
 const debug = __webpack_require__(/*! debug */ "./node_modules/.pnpm/debug@4.3.4_supports-color@8.1.1/node_modules/debug/src/browser.js");
-// $lab:coverage:off$
-// @ts-ignore
-const {
-  fetch
-} =  true ? window : 0;
-// $lab:coverage:on$
 const _debug = debug("FHIR");
 exports.debug = _debug;
 /**
@@ -1307,26 +1288,17 @@ function request(url, requestOptions = {}) {
       accept: "application/json",
       ...loweCaseKeys(options.headers)
     }
-  }).then(checkResponse).then(res => {
+  }).then(checkResponse).then(async res => {
     const type = res.headers.get("content-type") + "";
-    if (type.match(/\bjson\b/i)) {
-      return responseToJSON(res).then(body => ({
-        res,
-        body
-      }));
-    }
-    if (type.match(/^text\//i)) {
-      return res.text().then(body => ({
-        res,
-        body
-      }));
-    }
+    const isJson = type.match(/\bjson\b/i);
+    const isText = type.match(/\btext\b/i);
     return {
-      res
+      res,
+      body: isJson ? await res.json() : isText ? await res.text() : undefined
     };
   }).then(({
-    res,
-    body
+    body,
+    res
   }) => {
     // Some servers will reply after CREATE with json content type but with
     // empty body. In this case check if a location header is received and

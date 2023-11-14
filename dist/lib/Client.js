@@ -6,12 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 const lib_1 = require("./lib");
 const strings_1 = require("./strings");
 const settings_1 = require("./settings");
-// $lab:coverage:off$
-// @ts-ignore
-const {
-  Response
-} = typeof FHIRCLIENT_PURE !== "undefined" ? window : require("cross-fetch");
-// $lab:coverage:on$
 const debug = lib_1.debug.extend("client");
 /**
  * Adds patient context to requestOptions object to be used with [[Client.request]]
@@ -115,7 +109,7 @@ function resolveRefs(obj, fhirOptions, cache, client, signal) {
   paths = paths.filter((p, i) => {
     const index = paths.indexOf(p, i + 1);
     if (index > -1) {
-      debug("Duplicated reference path \"%s\"", p);
+      debug('Duplicated reference path "%s"', p);
       return false;
     }
     return true;
@@ -171,7 +165,7 @@ class Client {
       serverUrl: state
     } : state;
     // Valid serverUrl is required!
-    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), "A \"serverUrl\" option is required and must begin with \"http(s)\"");
+    (0, lib_1.assert)(_state.serverUrl && _state.serverUrl.match(/https?:\/\/.+/), 'A "serverUrl" option is required and must begin with "http(s)"');
     this.state = _state;
     this.environment = environment;
     this._refreshTask = null;
@@ -509,7 +503,7 @@ class Client {
       method: "PATCH",
       body: JSON.stringify(patch),
       headers: Object.assign({
-        "prefer": "return=presentation",
+        prefer: "return=presentation",
         "content-type": "application/json-patch+json; charset=UTF-8"
       }, requestOptions.headers)
     }));
