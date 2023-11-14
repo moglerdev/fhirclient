@@ -26,7 +26,6 @@
     "core-js": "^3.23.4",
     "cross-fetch": "^3.0.5",
     "debug": "^4.1.1",
-    "isomorphic-webcrypto": "^2.3.8",
     "jose": "^4.6.0",
     "js-base64": "^3.7.2"
   },
@@ -56,7 +55,6 @@
     "@types/hapi": "^18.0.3",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/mocha": "^9.1.1",
-    "@types/nightwatch": "^2.3.0",
     "@types/node": "^16.9.1",
     "babel-loader": "^8.2.5",
     "babel-polyfill": "^6.26.0",
