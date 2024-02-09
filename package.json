@@ -5,7 +5,8 @@
   "author": "SMART Health IT <support@smarthealthit.org> (https://smarthealthit.org/)",
   "contributors": [
     "Josh Mandel <joshua.mandel@childrens.harvard.edu>",
-    "Vladimir Ignatov <vlad.ignatov@gmail.com>"
+    "Vladimir Ignatov <vlad.ignatov@gmail.com>",
+    "Dylan Phelan <dtphelan1@gmail.com>"
   ],
   "keywords": [
     "SMART",
@@ -35,7 +36,7 @@
     "build:dev": "webpack --watch",
     "build:module": "cp src/types.d.ts dist/lib && tsc -p tsconfig.module.json && babel --env-name module -d dist/lib dist/lib",
     "doc": "typedoc",
-    "clean": "rm -rf dist/build && rm -r dist/lib/*",
+    "clean": "rimraf dist/build && rimraf dist/lib",
     "nightwatch": "nightwatch --headless test/specs/*.js"
   },
   "devDependencies": {
@@ -65,6 +66,7 @@
     "jsonwebtoken": "^8.5.1",
     "nightwatch": "^2.3.0",
     "nyc": "^15.1.0",
+    "rimraf": "^5.0.5",
     "ts-loader": "^9.3.1",
     "ts-node": "^10.2.1",
     "tslint": "^5.20.1",
