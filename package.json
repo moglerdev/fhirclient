@@ -36,7 +36,7 @@
     "build:dev": "webpack --watch",
     "build:module": "cp src/types.d.ts dist/lib && tsc -p tsconfig.module.json && babel --env-name module -d dist/lib dist/lib",
     "doc": "typedoc",
-    "clean": "rimraf dist/build && rimraf dist/lib",
+    "clean": "rm -rf dist/build && rm -r dist/lib/*",
     "nightwatch": "nightwatch --headless test/specs/*.js"
   },
   "devDependencies": {
