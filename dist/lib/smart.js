@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.init = exports.buildTokenRequest = exports.ready = exports.onMessage = exports.isInPopUp = exports.isInFrame = exports.authorize = exports.getSecurityExtensions = exports.fetchWellKnownJson = exports.KEY = void 0;
+exports.init = exports.buildTokenRequest = exports.getUserState = exports.ready = exports.onMessage = exports.isInPopUp = exports.isInFrame = exports.authorize = exports.getSecurityExtensions = exports.fetchWellKnownJson = exports.KEY = void 0;
 /* global window */
 const lib_1 = require("./lib");
 const Client_1 = require("./Client");
@@ -97,13 +97,13 @@ exports.getSecurityExtensions = getSecurityExtensions;
  * @param env
  * @param [params]
  */
-async function authorize(env, params = {}) {
+async function authorize(env, params = {}, userState) {
   const url = env.getUrl();
   // Multiple config for EHR launches ---------------------------------------
   if (Array.isArray(params)) {
     const urlISS = url.searchParams.get("iss") || url.searchParams.get("fhirServiceUrl");
     if (!urlISS) {
-      throw new Error('Passing in an "iss" url parameter is required if authorize ' + 'uses multiple configurations');
+      throw new Error('Passing in an "iss" url parameter is required if authorize ' + "uses multiple configurations");
     }
     // pick the right config
     const cfg = params.find(x => {
@@ -121,7 +121,7 @@ async function authorize(env, params = {}) {
       return false;
     });
     (0, lib_1.assert)(cfg, `No configuration found matching the current "iss" parameter "${urlISS}"`);
-    return await authorize(env, cfg);
+    return await authorize(env, cfg, userState);
   }
   // ------------------------------------------------------------------------
   // Obtain input
@@ -157,7 +157,7 @@ async function authorize(env, params = {}) {
   launch = url.searchParams.get("launch") || launch;
   patientId = url.searchParams.get("patientId") || patientId;
   clientId = url.searchParams.get("clientId") || clientId;
-  // If there's still no clientId or redirectUri, check deprecated params 
+  // If there's still no clientId or redirectUri, check deprecated params
   if (!clientId) {
     clientId = client_id;
   }
@@ -192,7 +192,7 @@ async function authorize(env, params = {}) {
       completeInTarget = inFrame;
       // In this case we can't always make the best decision so ask devs
       // to be explicit in their configuration.
-      console.warn('Your app is being authorized from within an iframe or popup ' + 'window. Please be explicit and provide a "completeInTarget" ' + 'option. Use "true" to complete the authorization in the ' + 'same window, or "false" to try to complete it in the parent ' + 'or the opener window. See http://docs.smarthealthit.org/client-js/api.html');
+      console.warn("Your app is being authorized from within an iframe or popup " + 'window. Please be explicit and provide a "completeInTarget" ' + 'option. Use "true" to complete the authorization in the ' + 'same window, or "false" to try to complete it in the parent ' + "or the opener window. See http://docs.smarthealthit.org/client-js/api.html");
     }
   }
   // If `authorize` is called, make sure we clear any previous state (in case
@@ -210,6 +210,7 @@ async function authorize(env, params = {}) {
     clientPrivateJwk,
     tokenResponse: {},
     key: stateKey,
+    userState,
     completeInTarget,
     clientPublicKeySetUrl
   };
@@ -260,7 +261,7 @@ async function authorize(env, params = {}) {
   if (launch) {
     redirectParams.push("launch=" + encodeURIComponent(launch));
   }
-  if (shouldIncludeChallenge(extensions.codeChallengeMethods.includes('S256'), pkceMode)) {
+  if (shouldIncludeChallenge(extensions.codeChallengeMethods.includes("S256"), pkceMode)) {
     let codes = await env.security.generatePKCEChallenge();
     Object.assign(state, codes);
     await storage.set(stateKey, state);
@@ -424,7 +425,9 @@ async function ready(env, options = {}) {
         }, origin);
         window.close();
       }
-      return new Promise(() => {});
+      return new Promise(() => {
+        /* leave it pending!!! */
+      });
     }
   }
   url.searchParams.delete("complete");
@@ -501,6 +504,15 @@ async function ready(env, options = {}) {
   return client;
 }
 exports.ready = ready;
+async function getUserState(env) {
+  var _a;
+  const url = env.getUrl();
+  const storage = env.getStorage();
+  const key = (_a = url.searchParams.get("state")) !== null && _a !== void 0 ? _a : await storage.get(settings_1.SMART_KEY);
+  const state = key ? await storage.get(key) : undefined;
+  return state === null || state === void 0 ? void 0 : state.userState;
+}
+exports.getUserState = getUserState;
 /**
  * Builds the token request options. Does not make the request, just
  * creates it's configuration and returns it in a Promise.
@@ -566,7 +578,7 @@ async function buildTokenRequest(env, {
   }
   if (codeVerifier) {
     debug("Found state.codeVerifier, adding to the POST body");
-    // Note that the codeVerifier is ALREADY encoded properly  
+    // Note that the codeVerifier is ALREADY encoded properly
     requestOptions.body += "&code_verifier=" + codeVerifier;
   }
   return requestOptions;
@@ -602,7 +614,7 @@ exports.buildTokenRequest = buildTokenRequest;
  * @param env The adapter
  * @param authorizeOptions The authorize options
  */
-async function init(env, authorizeOptions, readyOptions) {
+async function init(env, authorizeOptions, readyOptions, userState) {
   const url = env.getUrl();
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
@@ -620,7 +632,7 @@ async function init(env, authorizeOptions, readyOptions) {
     return new Client_1.default(env, cached);
   }
   // Otherwise try to launch
-  return authorize(env, authorizeOptions).then(() => {
+  return authorize(env, authorizeOptions, userState).then(() => {
     // `init` promises a Client but that cannot happen in this case. The
     // browser will be redirected (unload the page and be redirected back
     // to it later and the same init function will be called again). On
@@ -628,7 +640,9 @@ async function init(env, authorizeOptions, readyOptions) {
     // want to return that from this promise chain because it is not a
     // Client instance. At the same time, if authorize fails, we do want to
     // pass the error to those waiting for a client instance.
-    return new Promise(() => {});
+    return new Promise(() => {
+      /* leave it pending!!! */
+    });
   });
 }
 exports.init = init;

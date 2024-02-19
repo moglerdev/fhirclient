@@ -3,7 +3,7 @@
 import BrowserAdapter from "../adapters/BrowserAdapter";
 
 const adapter = new BrowserAdapter();
-const { ready, authorize, init, client, options, utils } =
+const { ready, authorize, init, client, options, utils, getUserState } =
   adapter.getSmartApi();
 
 // $lab:coverage:off$
@@ -15,6 +15,7 @@ const FHIR = {
     settings: options,
     ready,
     authorize,
+    getUserState,
     init,
   },
 };

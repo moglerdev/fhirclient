@@ -1,5 +1,5 @@
 import { fhirclient } from "../types";
-import { ready, authorize, init } from "../smart";
+import { ready, authorize, init, getUserState } from "../smart";
 import Client from "../Client";
 import ServerStorage from "../storage/ServerStorage";
 import { IncomingMessage, ServerResponse } from "http";
@@ -146,8 +146,9 @@ export default class NodeAdapter implements fhirclient.Adapter {
   getSmartApi(): fhirclient.SMART {
     return {
       ready: (...args: any[]) => ready(this, ...args),
-      authorize: (options) => authorize(this, options),
-      init: (options) => init(this, options),
+      authorize: (options, userState) => authorize(this, options, userState),
+      init: (options, userState) => init(this, options, undefined, userState),
+      getUserState: () => getUserState(this),
       client: (state: string | fhirclient.ClientState) =>
         new Client(this, state),
       options: this.options,

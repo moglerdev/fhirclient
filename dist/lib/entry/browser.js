@@ -10,7 +10,8 @@ const {
   init,
   client,
   options,
-  utils
+  utils,
+  getUserState
 } = adapter.getSmartApi();
 // $lab:coverage:off$
 const FHIR = {
@@ -21,6 +22,7 @@ const FHIR = {
     settings: options,
     ready,
     authorize,
+    getUserState,
     init
   }
 };
